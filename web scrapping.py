@@ -15,7 +15,7 @@ soup = BeautifulSoup(response.content, "html.parser")
 table = soup.find("table", class_="ds-w-full ds-table ds-table-xs ds-table-auto ds-w-full ds-overflow-scroll ds-scrollbar-hide")
 
 # Save the data to a CSV file
-csv_filename = "t20_world_cup_2022_results.csv"
+csv_filename = "t20_world_cup_2022_results_with_links.csv"
 
 if table:
     rows = table.find_all("tr")
@@ -27,8 +27,20 @@ if table:
         # Iterate through rows and write to the CSV
         for row in rows:
             columns = row.find_all(["th", "td"])
-            writer.writerow([col.text.strip() for col in columns])
+            row_data = []
+            
+            for col in columns:
+                # Check if the column contains an <a> tag
+                link = col.find("a")
+                if link and link.has_attr("href"):
+                    # Append the hyperlink instead of the text
+                    row_data.append(link["href"])
+                else:
+                    # Append the plain text
+                    row_data.append(col.text.strip())
+            
+            writer.writerow(row_data)
     
-    print(f"Table data has been saved to {csv_filename}")
+    print(f"Table data with links has been saved to {csv_filename}")
 else:
     print("Table not found")
