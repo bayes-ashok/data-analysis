@@ -24,7 +24,8 @@ tables = soup.find_all("table", class_="ds-w-full ds-table ds-table-md ds-table-
 
 # Open a single CSV file to save data for all tables
 csv_filename = "combined_table.csv"
-with open(csv_filename, "w", newline="", encoding="utf-8") as csvfile:
+with open(csv_filename, "a", newline="", encoding="utf-8") as csvfile:
+    
     csvwriter = csv.writer(csvfile)
 
     # Check if tables exist

@@ -1,9 +1,14 @@
+
+#######################################################################################
+###############################Extracting Main Table#################################
+#######################################################################################
+
 import requests
 from bs4 import BeautifulSoup
 import csv
 
 # URL of the webpage containing the table
-url = "https://www.espncricinfo.com/records/tournament/team-match-results/icc-men-s-t20-world-cup-2022-23-14450"
+url = "https://www.espncricinfo.com/records/season/team-match-results/2024-2024?trophy=89"
 
 # Sending an HTTP request to the URL
 response = requests.get(url)
@@ -15,7 +20,7 @@ soup = BeautifulSoup(response.content, "html.parser")
 table = soup.find("table", class_="ds-w-full ds-table ds-table-xs ds-table-auto ds-w-full ds-overflow-scroll ds-scrollbar-hide")
 
 # Save the data to a CSV file
-csv_filename = "t20_world_cup_2022_results_with_links.csv"
+csv_filename = "t20_world_cup_2024_results_with_links.csv"
 
 if table:
     rows = table.find_all("tr")
@@ -35,6 +40,7 @@ if table:
                 if link and link.has_attr("href"):
                     # Append the hyperlink instead of the text
                     row_data.append(link["href"])
+
                 else:
                     # Append the plain text
                     row_data.append(col.text.strip())
@@ -44,3 +50,4 @@ if table:
     print(f"Table data with links has been saved to {csv_filename}")
 else:
     print("Table not found")
+

@@ -1,2 +1,0 @@
-class="ds-w-full ds-table ds-table-md ds-table-auto  ci-scorecard-table"
-class="ds-w-full ds-table ds-table-md ds-table-auto  ci-scorecard-table"
